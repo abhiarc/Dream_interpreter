@@ -229,14 +229,13 @@ with tab_interpret:
     dream_text = st.text_area(
         "",
         height=90,
-        key="dream_input",
+        key="dreaminput",
         placeholder="Describe your dream...",
         label_visibility="collapsed",
     )
 
-
     if not st.session_state.interpretation_done:
-        ancient_styles = [
+        ancientstyles = [
             "Ancient Egyptian",
             "Ancient Greek Oneiromancy",
             "Biblical Early Christian",
@@ -244,7 +243,7 @@ with tab_interpret:
             "Nordic Norse",
             "Native American Indigenous",
         ]
-        modern_styles = [
+        modernstyles = [
             "Freudian Psychoanalytic",
             "Jungian Analytical Psychology",
             "Gestalt",
@@ -252,41 +251,43 @@ with tab_interpret:
             "Existential Humanistic",
         ]
 
-        cols1 = st.columns(6)
-        for i, label in enumerate(ancient_styles):
-            if cols1[i].button(label, key=f"ancient_{i}", use_container_width=True):
-                st.session_state.click_counts[label] += 1
-                st.session_state.selected_style = label
-                st.session_state.interpreting = True
-                st.session_state.interpretation_start_time = time.time()
-                st.session_state.interpretation_text = None
-                st.rerun()
+        #ordered = getorderedstyles()
+        #ordered_ancient = [s for s in ordered if s in ancientstyles]
+        #ordered_modern = [s for s in ordered if s in modernstyles]
+        styles = ["General"] + ancientstyles + modernstyles
 
-        st.write("")  # spacer
+        current = st.session_state.selected_style or "General"
+        if current not in styles:
+            current = "General"
 
-        cols2 = st.columns(5)
-        for i, label in enumerate(modern_styles):
-            if cols2[i].button(label, key=f"modern_{i}", use_container_width=True):
-                st.session_state.click_counts[label] += 1
-                st.session_state.selected_style = label
-                st.session_state.interpreting = True
-                st.session_state.interpretation_start_time = time.time()
-                st.session_state.interpretation_text = None
-                st.rerun()
+        st.session_state.selectedstyle = st.selectbox(
+            "Choose an interpretation school",
+            options=styles,
+            index=styles.index(current),
+        )
+
+        if st.button("Interpret", use_container_width=True):
+            if st.session_state.selectedstyle and st.session_state.selectedstyle != "General":
+                st.session_state.click_counts[st.session_state.selectedstyle] += 1
+
+            st.session_state.interpreting = True
+            st.session_state.interpretationstarttime = time.time()
+            st.session_state.interpretationtext = None
+            st.rerun()
+
     else:
-        col1, col2, col3 = st.columns([1, 2, 1])
-        with col2:
-            if st.button("Interpret another dream", use_container_width=True):
-                for k in [
-                    "interpretation_done",
-                    "selected_style",
-                    "interpreting",
-                    "interpretation_start_time",
-                    "interpretation_text",
-                ]:
-                    if k in st.session_state:
-                        del st.session_state[k]
-                st.rerun()
+        if st.button("Interpret another dream", use_container_width=True):
+            for k in [
+                "interpretationdone",
+                "selectedstyle",
+                "interpreting",
+                "interpretationstarttime",
+                "interpretationtext",
+            ]:
+                if k in st.session_state:
+                    del st.session_state[k]
+            st.rerun()
+
 
     # Loading + generation (only if a dream is present)
     if st.session_state.get("interpreting", False) and dream_text.strip():
