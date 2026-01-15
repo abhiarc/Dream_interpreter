@@ -319,6 +319,7 @@ with tab_interpret:
             )
 
         # Only call once per run; store in session_state so reruns don't re-call the API
+        # Only call once per run; store in session_state so reruns don't re-call the API
         if st.session_state.interpretation_text is None:
             try:
                 st.session_state.interpretation_text = generate_interpretation(
@@ -327,13 +328,14 @@ with tab_interpret:
                 )
             except Exception as e:
                 msg = str(e)
-            if "insufficient_quota" in msg:
-                st.session_state.interpretation_text = (
-                    "OpenAI API quota exceeded for this API key. "
-                    "Please add credits / enable billing on the OpenAI platform, then try again."
+                if "insufficient_quota" in msg:
+                    st.session_state.interpretation_text = (
+                        "OpenAI API quota exceeded for this API key. "
+                        "Please add credits / enable billing on the OpenAI platform, then try again."
                     )
-            else:
-                st.session_state.interpretation_text = f"Error calling OpenAI API: {e}"
+                else:
+                    st.session_state.interpretation_text = f"Error calling OpenAI API: {e}"
+
 
 
             st.session_state.interpretation_done = True
