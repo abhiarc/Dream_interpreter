@@ -7,7 +7,10 @@ from openai import OpenAI
 # -----------------------------
 # OpenAI client
 # -----------------------------
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+api_key = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=api_key)
+
+#client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # -----------------------------
 # System prompt
@@ -277,16 +280,18 @@ with tab_interpret:
 
     else:
         if st.button("Interpret another dream", use_container_width=True):
-            for k in [
-                "interpretationdone",
-                "selectedstyle",
-                "interpreting",
-                "interpretationstarttime",
-                "interpretationtext",
-            ]:
-                if k in st.session_state:
-                    del st.session_state[k]
+            # Reset your app flow flags
+            st.session_state.interpretationdone = False
+            st.session_state.selectedstyle = None
+            st.session_state.interpreting = False
+            st.session_state.interpretationstarttime = None
+            st.session_state.interpretationtext = None
+
+            # Clear the text area (because it uses key="dreaminput")
+            st.session_state["dreaminput"] = ""
+
             st.rerun()
+
 
 
     # Loading + generation (only if a dream is present)
@@ -318,7 +323,7 @@ with tab_interpret:
                 unsafe_allow_html=True,
             )
 
-        # Only call once per run; store in session_state so reruns don't re-call the API
+        
         # Only call once per run; store in session_state so reruns don't re-call the API
         if st.session_state.interpretation_text is None:
             try:
@@ -327,8 +332,8 @@ with tab_interpret:
                     style=st.session_state.selected_style or "General",
                 )
             except Exception as e:
-                msg = str(e)
-                if "insufficient_quota" in msg:
+                msg_api = str(e)
+                if "insufficient_quota" in msg_api:
                     st.session_state.interpretation_text = (
                         "OpenAI API quota exceeded for this API key. "
                         "Please add credits / enable billing on the OpenAI platform, then try again."
