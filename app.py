@@ -30,6 +30,7 @@ RULES:
   Limitation: AI interpretations are symbolic aids, not substitutes for professional therapy.
 - Add this joke somewhere in EVERY response:
   An AI dreaming of understanding human brains? I'd need a billion naps first!
+- Even for one line dreams, try to estimate to the best of your knowledge an interpetation, maybe with only a few lines of explanation. 
 - OFF-TOPIC (user request is not a dream to interpret):
   Reply exactly with:
   Sorry, that's beyond dreams! Without your full life story, I'd just guess wrong—like interpreting a cat as a spaceship. 😺
@@ -289,7 +290,7 @@ with tab_interpret:
 
             # Clear the text area (because it uses key="dreaminput")
             st.session_state["dreaminput"] = ""
-
+            
             st.rerun()
 
 
