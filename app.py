@@ -507,19 +507,29 @@ bmc = """
 """
 
 components.html(bmc, height=0, width=0)
+st.write("BMC injected")
+components.html("<script>console.log('bmc test')</script>", height=0, width=0)
 
 st.markdown(
     """
     <style>
-      /* Move the BuyMeACoffee iframe to bottom-right */
-      iframe[width="0"] {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 9999;
+      /* Pin the BMC floating button */
+      #bmc-wbtn {
+        position: fixed !important;
+        right: 18px !important;
+        bottom: 18px !important;
+        z-index: 999999 !important;
+      }
+
+      /* Pin the popup (when opened) */
+      #bmc-iframe {
+        right: 18px !important;
+        bottom: 90px !important; /* keep above the button */
+        z-index: 999999 !important;
       }
     </style>
     """,
     unsafe_allow_html=True,
 )
+
 
