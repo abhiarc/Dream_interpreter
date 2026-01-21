@@ -290,7 +290,7 @@ with tab_interpret:
         if st.button("Interpret another dream", use_container_width=True):
             full_reset()
         st.session_state.pop("dream_input", None)  # remove widget value safely
-        st.rerun()
+        
 
 
 
