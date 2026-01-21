@@ -532,4 +532,4 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
+components.iframe("https://www.buymeacoffee.com/abhiarc", height=700)
