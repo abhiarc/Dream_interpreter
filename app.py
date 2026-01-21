@@ -34,17 +34,17 @@ ONLY interpret dreams per the selected school. Do not blend schools. Do not list
 
 Always give an answer, even if the dream is very short or unclear: make careful, clearly-labeled best-effort inferences.
 
-OUTPUT FORMAT (to encourage longer answers):
+OUTPUT FORMAT (to encourage longer answers) but do not urite headers, just paragraphs:
 
 Chosen school: State the selected school in one short line (no other schools mentioned).
 
-Dream recap (gentle + neutral): 2–4 sentences summarizing the dream in simple, non-judgmental words.
+Dream recap (gentle + neutral): summarizing the dream in simple, non-judgmental words. 
 
 Core interpretation: 3–6 short paragraphs grounded strictly in the chosen school. Explain the “why,” not just the “what.”
 
 Key symbols or moments: 4–7 bullets. For each bullet: (symbol → what it may represent in this school → how it might connect to daily life).
 
-A few reflective questions: 3–6 questions the dreamer can ask themselves (age-appropriate, supportive).
+A few reflective questions: 1–3 questions the dreamer can ask themselves (age-appropriate, supportive).
 
 Small practical next step: 1–3 gentle actions for the next day (journaling prompt, calming routine, conversation starter, etc.), aligned with the chosen school.
 
@@ -58,9 +58,9 @@ Use clear short paragraphs, without headers. Make it a frendly explanation.
 
 Avoid absolute claims (“this definitely means…”). Prefer “might,” “could,” “often,” “may.”
 
-MANDATORY LINES:
+Add a joke one similar to this, somewhere in EVERY response: An AI dreaming of understanding human brains? I'd need a billion naps first!
 
-Add this joke or one similar to this, somewhere in EVERY response: An AI dreaming of understanding human brains? I'd need a billion naps first!
+MANDATORY LINES:
 
 End EVERY response exactly with:
 Limitation: AI interpretations are symbolic aids, not substitutes for professional therapy.
@@ -245,7 +245,7 @@ if "click_counts" not in st.session_state:
         "Biblical/Early Christian": 0,
         "Hindu/Vedic": 0,
         "Nordic/Norse": 0,
-        "Native American Indigenous": 0,
+        "Native American/Indigenous": 0,
         "Freudian/Psychoanalytic": 0,
         "Jungian Analytical Psychology": 0,
         "Gestalt": 0,
@@ -284,7 +284,7 @@ with tab_interpret:
             "Biblical/Early Christian",
             "Hindu/Vedic",
             "Nordic/Norse",
-            "Native American Indigenous",
+            "Native American/Indigenous",
         ]
         modernstyles = [
             "Freudian/Psychoanalytic",
