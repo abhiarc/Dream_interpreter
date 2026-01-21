@@ -4,6 +4,8 @@ import random
 import streamlit as st
 from openai import OpenAI
 
+import streamlit.components.v1 as components
+
 # -----------------------------
 # OpenAI client
 # -----------------------------
@@ -484,3 +486,35 @@ with tab_library:
     # This reruns the app and encourages the user to click "Interpret" if it doesn't auto-switch.
     if st.button("Interpret my dream", use_container_width=True):
         st.rerun()
+
+# -----------------------------
+# Buy me a coffee
+# -----------------------------
+bmc = """
+<script 
+    data-name="BMC-Widget" 
+    data-cfasync="false" 
+    src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+    data-id="abhiarc" 
+    data-description="Support me on Buy me a coffee!" 
+    data-message="If this project added a little value to your day, you can sponsor its next iteration with a coffee. Your support helps keep it beautifully built, thoughtfully maintained, and always improving." 
+    data-color="#5F7FFF" 
+    data-position="Right" 
+    data-x_margin="18" 
+    data-y_margin="18"
+></script>
+"""
+
+components.html(bmc, height=0, width=0)
+
+st.markdown("""
+<style>
+/* Move the BuyMeACoffee iframe to bottom-right */
+iframe[width="0"] {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+</style>
+""", unsafe_allow_html=True)
