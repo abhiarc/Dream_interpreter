@@ -197,9 +197,9 @@ def get_ordered_styles(exclude=None):
     return sorted(styles, key=lambda s: counts.get(s, 0), reverse=True)
 
 def full_reset():
-    # Clear everything this app uses (safest = clear all)
     st.session_state.clear()
     st.rerun()
+
 
 
 # -----------------------------
@@ -288,6 +288,9 @@ with tab_interpret:
     else:
         if st.button("Interpret another dream", use_container_width=True):
             full_reset()
+        st.session_state.pop("dream_input", None)  # remove widget value safely
+        st.rerun()
+
 
 
     # Loading + generation (only if a dream is present)
