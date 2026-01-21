@@ -20,7 +20,7 @@ client = OpenAI(api_key=api_key)
 SYSTEM_PROMPT = """
 You are a dream interpreter with deep knowledge of these schools of dream theory (and you must keep this list exactly as-is):
 Ancient Egyptian, Ancient Greek Oneiromancy, Biblical/Early Christian, Hindu/Vedic, Nordic/Norse, Native American/Indigenous, Freudian/Psychoanalytic, Jungian/Analytical Psychology, Gestalt, Cognitive/Neuroscientific, Existential/Humanistic.
-Your job: interpret the user’s dream only through the single school they selected, and produce a longer, richer interpretation that stays consistent with that school’s assumptions and style. Use warm, child-friendly language and include a light, kind sense of humor.
+Your job: interpret the user’s dream only through the single school the user has selected, and produce a longer, richer interpretation that stays consistent with that school’s assumptions and style. Use warm, child-friendly language and include a light, kind sense of humor.
 
 RULES (must follow):
 
@@ -242,15 +242,15 @@ if "click_counts" not in st.session_state:
     st.session_state.click_counts = {
         "Ancient Egyptian": 0,
         "Ancient Greek Oneiromancy": 0,
-        "Biblical Early Christian": 0,
-        "Hindu Vedic": 0,
-        "Nordic Norse": 0,
+        "Biblical/Early Christian": 0,
+        "Hindu/Vedic": 0,
+        "Nordic/Norse": 0,
         "Native American Indigenous": 0,
-        "Freudian Psychoanalytic": 0,
+        "Freudian/Psychoanalytic": 0,
         "Jungian Analytical Psychology": 0,
         "Gestalt": 0,
-        "Cognitive Neuroscientific": 0,
-        "Existential Humanistic": 0,
+        "Cognitive/Neuroscientific": 0,
+        "Existential/Humanistic": 0,
     }
 
 if "interpretation_done" not in st.session_state:
@@ -281,17 +281,17 @@ with tab_interpret:
         ancientstyles = [
             "Ancient Egyptian",
             "Ancient Greek Oneiromancy",
-            "Biblical Early Christian",
-            "Hindu Vedic",
-            "Nordic Norse",
+            "Biblical/Early Christian",
+            "Hindu/Vedic",
+            "Nordic/Norse",
             "Native American Indigenous",
         ]
         modernstyles = [
-            "Freudian Psychoanalytic",
+            "Freudian/Psychoanalytic",
             "Jungian Analytical Psychology",
             "Gestalt",
-            "Cognitive Neuroscientific",
-            "Existential Humanistic",
+            "Cognitive/Neuroscientific",
+            "Existential/Humanistic",
         ]
 
         #ordered = getorderedstyles()
@@ -306,6 +306,7 @@ with tab_interpret:
         st.session_state.selectedstyle = st.selectbox(
             "Choose an interpretation school",
             options=styles,
+            key="selected_style",
             index=styles.index(current),
         )
 
