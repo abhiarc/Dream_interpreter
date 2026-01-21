@@ -507,8 +507,8 @@ bmc = """
 """
 
 components.html(bmc, height=0, width=0)
-st.write("BMC injected")
-components.html("<script>console.log('bmc test')</script>", height=0, width=0)
+#st.write("BMC injected")
+#components.html("<script>console.log('bmc test')</script>", height=0, width=0)
 
 st.markdown(
     """
