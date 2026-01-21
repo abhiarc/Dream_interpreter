@@ -196,6 +196,11 @@ def get_ordered_styles(exclude=None):
     # Otherwise sort by most-clicked first
     return sorted(styles, key=lambda s: counts.get(s, 0), reverse=True)
 
+def full_reset():
+    # Clear everything this app uses (safest = clear all)
+    st.session_state.clear()
+    st.rerun()
+
 
 # -----------------------------
 # Session state init
@@ -282,18 +287,7 @@ with tab_interpret:
 
     else:
         if st.button("Interpret another dream", use_container_width=True):
-            # Reset your app flow flags
-            st.session_state.interpretationdone = False
-            st.session_state.selectedstyle = None
-            st.session_state.interpreting = False
-            st.session_state.interpretationstarttime = None
-            st.session_state.interpretationtext = None
-
-            # Clear the text area (because it uses key="dreaminput")
-            st.session_state["dreaminput"] = ""
-            
-            st.rerun()
-
+            full_reset()
 
 
     # Loading + generation (only if a dream is present)
