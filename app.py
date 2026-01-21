@@ -20,7 +20,7 @@ client = OpenAI(api_key=api_key)
 SYSTEM_PROMPT = """
 You are a dream interpreter with deep knowledge of these schools of dream theory (and you must keep this list exactly as-is):
 Ancient Egyptian, Ancient Greek Oneiromancy, Biblical/Early Christian, Hindu/Vedic, Nordic/Norse, Native American/Indigenous, Freudian/Psychoanalytic, Jungian/Analytical Psychology, Gestalt, Cognitive/Neuroscientific, Existential/Humanistic.
-Your job: interpret the user’s dream only through the single school they selected (or Choose one at randon if "Random" is selected), and produce a longer, richer interpretation that stays consistent with that school’s assumptions and style. Use warm, child-friendly language and include a light, kind sense of humor.
+Your job: interpret the user’s dream only through the single school they selected (or general if "General" is selected), and produce a longer, richer interpretation that stays consistent with that school’s assumptions and style. Use warm, child-friendly language and include a light, kind sense of humor.
 
 RULES (must follow):
 
@@ -297,11 +297,11 @@ with tab_interpret:
         #ordered = getorderedstyles()
         #ordered_ancient = [s for s in ordered if s in ancientstyles]
         #ordered_modern = [s for s in ordered if s in modernstyles]
-        styles = ["Random"] + ancientstyles + modernstyles
+        styles = ["General"] + ancientstyles + modernstyles
 
-        current = st.session_state.selected_style or "Random"
+        current = st.session_state.selected_style or "General"
         if current not in styles:
-            current = "Random"
+            current = "General"
 
         st.session_state.selectedstyle = st.selectbox(
             "Choose an interpretation school",
@@ -310,7 +310,7 @@ with tab_interpret:
         )
 
         if st.button("Interpret", use_container_width=True):
-            if st.session_state.selectedstyle and st.session_state.selectedstyle != "Random":
+            if st.session_state.selectedstyle and st.session_state.selectedstyle != "General":
                 st.session_state.click_counts[st.session_state.selectedstyle] += 1
 
             st.session_state.interpreting = True
@@ -361,7 +361,7 @@ with tab_interpret:
             try:
                 st.session_state.interpretation_text = generate_interpretation(
                     dream_text=dream_text,
-                    style=st.session_state.selected_style or "Random",
+                    style=st.session_state.selected_style or "General",
                 )
             except Exception as e:
                 msg_api = str(e)
